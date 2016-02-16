@@ -17,7 +17,7 @@ dirs:
         path: '/var/log/livy'
         owner: 'hue'
         group: 'hadoop'
-    ports:
-        livy:
-            port: 8998 
-            exposed_on: 'livy'
+ports:
+    livy:
+        port: 8998 
+        exposed_on: 'livy'
