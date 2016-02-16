@@ -18,7 +18,7 @@ dirs:
         path: '/etc/livy/conf'
         owner: 'hue'
         group: 'hadoop'
-    hue_logs:
+    livy_logs:
         path: '/var/log/livy'
         owner: 'hue'
         group: 'hadoop'

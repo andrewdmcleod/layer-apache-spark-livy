@@ -49,7 +49,6 @@ class Livy(object):
 
     def setup_livy(self):
         self.setup_livy_config()
-        self.setup_livy_tutorial()
 
 
     def setup_livy_config(self):
@@ -61,12 +60,12 @@ class Livy(object):
         livy_conf.rmtree_p()
         default_conf.copytree(livy_conf)
 
-        livy_env = self.dist_config.path('livy_conf') / 'livy-env.sh'
-        if not livy_env.exists():
-            (self.dist_config.path('livy_conf') / 'livy-env.sh.template').copy(livy_env)
-        livy_site = self.dist_config.path('livy_conf') / 'livy-site.xml'
-        if not livy_site.exists():
-            (self.dist_config.path('livy_conf') / 'livy-site.xml.template').copy(livy_site)
+#        livy_env = self.dist_config.path('livy_conf') / 'livy-env.sh'
+#        if not livy_env.exists():
+#            (self.dist_config.path('livy_conf') / 'livy-env.sh.template').copy(livy_env)
+#        livy_site = self.dist_config.path('livy_conf') / 'livy-site.xml'
+#        if not livy_site.exists():
+#            (self.dist_config.path('livy_conf') / 'livy-site.xml.template').copy(livy_site)
 
 
     def configure_livy(self):
@@ -89,7 +88,7 @@ class Livy(object):
         # Start if we're not already running. We currently dont have any
         # runtime config options, so no need to restart when hooks fire.
         if not utils.jps("livy"):
-            livy_log = self.dist_config.path('livy_log') + 'livy-server.log'
+            livy_log = self.dist_config.path('livy_logs') + 'livy-server.log'
             livy_home = self.dist_config.path('livy')
             # chdir here because things like zepp tutorial think ZEPPELIN_HOME
             # is wherever the daemon was started from.
