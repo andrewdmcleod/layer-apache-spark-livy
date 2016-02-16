@@ -9,8 +9,8 @@ def get_dist_config():
     from jujubigdata.utils import DistConfig  # no available until after bootstrap
 
     if not getattr(get_dist_config, 'value', None):
-        zeppelin_reqs = ['vendor', 'packages', 'dirs', 'ports']
-        get_dist_config.value = DistConfig(filename='dist.yaml', required_keys=zeppelin_reqs)
+        livy_reqs = ['vendor', 'packages', 'dirs', 'ports']
+        get_dist_config.value = DistConfig(filename='dist.yaml', required_keys=livy_reqs)
     return get_dist_config.value
 
 livy = Livy(get_dist_config())
