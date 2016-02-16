@@ -5,7 +5,7 @@ optional_resources:
 #    url: https://s3.amazonaws.com/jujubigdata/apache/noarch/zeppelin-0.5.5-incubating-bin-c35ec193-all.tgz
 #    hash: c35ec193ad2b0532594e5dc42e76c1da45f67f608c1e65a278684cdfa39cb4f4b6ff31d80daf43398da27d304c2f03ac6d148c59556dff28f2616266b6a7bc9d
 #    hash_type: sha512
-  zeppelin-x86_64:
-    url: https://s3.amazonaws.com/jujubigdata/apache/x86_64/spark-141-livy-d0163bd.tgz
-    hash: d0163bd2a98d670e14cd06be588556fb5bba544ed33351a9db5b0359ad74406c
-    hash_type: sha256
+  livy-x86_64:
+    url: https://s3.amazonaws.com/jujubigdata/apache/x86_64/spark-141-livy-c0de272.tgz
+    hash: c0de2728e67920b05385b6414a1d81317418092a48092fcbd1c412cf9ea16c5368c8efb70faf36ee76301838b3478e9995af688ad09c3162acafcd88e50e4e4a
+    hash_type: sha512
