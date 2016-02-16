@@ -4,6 +4,11 @@
 vendor: apache
 packages:
     - 'unzip'
+groups:
+    - 'hadoop'
+users:
+    hue:
+        groups: ['hadoop']
 dirs:
     livy:
         path: '/usr/lib/livy'
