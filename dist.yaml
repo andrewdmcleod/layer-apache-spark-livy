@@ -5,26 +5,19 @@ vendor: apache
 packages:
     - 'unzip'
 dirs:
-    hue:
+    livy:
         path: '/usr/lib/livy'
         owner: 'hue'
         group: 'hadoop'
     livy_conf:
-        path: '/etc/hue/conf'
-        owner: 'ubuntu'
+        path: '/etc/livy/conf'
+        owner: 'hue'
         group: 'hadoop'
     hue_logs:
-        path: '/var/log/hue'
-        owner: 'ubuntu'
+        path: '/var/log/livy'
+        owner: 'hue'
         group: 'hadoop'
-ports:
-    # Ports that need to be exposed, overridden, or manually specified.
-    # Only expose ports serving a UI or external API (i.e., namenode and
-    # resourcemanager).  Communication among units within the cluster does
-    # not need ports to be explicitly opened.
-    # If adding a new port here, you will need to update
-    # charmhelpers.contrib.bigdata.handlers.apache or hooks/callbacks.py
-    # to ensure that it is supported.
-    hue:
-        port: 8998 
-        exposed_on: 'livy'
+    ports:
+        livy:
+            port: 8998 
+            exposed_on: 'livy'

@@ -7,3 +7,20 @@ options:
     users:
         hue:
             groups: ['hadoop']
+    dirs:
+        livy:
+            path: '/usr/lib/livy'
+            owner: 'hue'
+            group: 'hadoop'
+        livy_conf:
+            path: '/etc/hue/conf'
+            owner: 'hue'
+            group: 'hadoop'
+        livy_logs:
+            path: '/var/log/livy'
+            owner: 'hue'
+            group: 'hadoop'
+        ports:
+            livy:
+                port: 8998 
+                exposed_on: 'livy'
