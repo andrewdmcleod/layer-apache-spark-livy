@@ -52,3 +52,19 @@ def report_blocked():
 @when_not('spark.available')
 def report_waiting(spark):
     hookenv.status_set('waiting', 'Waiting for Apache Spark to become ready')
+
+
+@when('livy.installed', 'client.joined')
+@when_not('client.configured')
+def client_joined(livy):
+    dist = get_dist_config()
+    port = dist.port('livy')
+    livy.send_port(port)
+    set_state('client.configured')
+
+
+@when('livy.installed', 'client.configured')
+@when_not('client.joined')
+def client_departed():
+    remove_state('client.configured')
+

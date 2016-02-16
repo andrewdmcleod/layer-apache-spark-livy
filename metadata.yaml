@@ -6,6 +6,9 @@ description: |
         livy
 tags: ["bigdata", "hadoop", "apache"]
 subordinate: true
+provides:
+  client:
+    interface: livy 
 requires:
   spark:
     interface: spark
