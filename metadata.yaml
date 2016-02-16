@@ -1,4 +1,4 @@
-name: apache-livy
+name: apache-spark-livy
 summary: REST API for HUE to connect to Apache Spark
 maintainer: Big Data Team <bigdata@lists.ubuntu.com>
 description: |
