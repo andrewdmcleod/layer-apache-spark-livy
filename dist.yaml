@@ -5,20 +5,16 @@ vendor: apache
 packages:
     - 'unzip'
 dirs:
-    zeppelin:
-        path: '/usr/lib/zeppelin'
+    hue:
+        path: '/usr/lib/livy'
+        owner: 'hue'
+        group: 'hadoop'
+    livy_conf:
+        path: '/etc/hue/conf'
         owner: 'ubuntu'
         group: 'hadoop'
-    zeppelin_conf:
-        path: '/etc/zeppelin/conf'
-        owner: 'ubuntu'
-        group: 'hadoop'
-    zeppelin_logs:
-        path: '/var/log/zeppelin'
-        owner: 'ubuntu'
-        group: 'hadoop'
-    zeppelin_notebooks:
-        path: '/var/lib/zeppelin/notebook'
+    hue_logs:
+        path: '/var/log/hue'
         owner: 'ubuntu'
         group: 'hadoop'
 ports:
@@ -29,9 +25,6 @@ ports:
     # If adding a new port here, you will need to update
     # charmhelpers.contrib.bigdata.handlers.apache or hooks/callbacks.py
     # to ensure that it is supported.
-    zeppelin:
-        port: 9090
-        exposed_on: 'zeppelin'
-    zeppelin_web:
-        port: 9091
-        exposed_on: 'zeppelin'
+    hue:
+        port: 8998 
+        exposed_on: 'livy'

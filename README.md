@@ -1,3 +1,12 @@
+Spark server needs decent amount of RAM or 'Gateway 504 error' will probably occur
+
+add user hue and other dist.yaml settings so livy runs as hue
+OR
+allow the user who is running it to impersonate the user hue
+
+export CLASSPATH=`hadoop classpath`
+
+
 ## Overview
 
 Apache Zeppelin is a web-based notebook that enables interactive data analytics.
