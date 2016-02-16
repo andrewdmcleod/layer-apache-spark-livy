@@ -60,13 +60,6 @@ class Livy(object):
         livy_conf.rmtree_p()
         default_conf.copytree(livy_conf)
 
-#        livy_env = self.dist_config.path('livy_conf') / 'livy-env.sh'
-#        if not livy_env.exists():
-#            (self.dist_config.path('livy_conf') / 'livy-env.sh.template').copy(livy_env)
-#        livy_site = self.dist_config.path('livy_conf') / 'livy-site.xml'
-#        if not livy_site.exists():
-#            (self.dist_config.path('livy_conf') / 'livy-site.xml.template').copy(livy_site)
-
 
     def configure_livy(self):
         '''
@@ -76,8 +69,12 @@ class Livy(object):
         with utils.environment_edit_in_place('/etc/environment') as env:
             if livy_bin not in env['PATH']:
                 env['PATH'] = ':'.join([env['PATH'], livy_bin])
-            hadoop_classpath = utils.run_as('ubuntu', 'hadoop', 'classpath')
-            env['CLASSPATH'] = "$CLASSPATH:" + str(hadoop_classpath)
+            hadoop_cp = '/etc/hadoop/conf:/usr/lib/hadoop/share/hadoop/common/lib/*:/usr/lib/hadoop/share/hadoop/common/*\
+:/usr/lib/hadoop/share/hadoop/hdfs:/usr/lib/hadoop/share/hadoop/hdfs/lib/*\
+:/usr/lib/hadoop/share/hadoop/hdfs/*:/usr/lib/hadoop/share/hadoop/yarn/lib/*\
+:/usr/lib/hadoop/share/hadoop/yarn/*:/usr/lib/hadoop/share/hadoop/mapreduce/lib/*\
+:/usr/lib/hadoop/share/hadoop/mapreduce/*:/usr/lib/hadoop/contrib/capacity-scheduler/*.jar'
+            env['CLASSPATH'] = hadoop_cp
 
         cmd = "chown -R hue:hadoop {}".format(self.dist_config.path('livy'))
         call(cmd.split())
@@ -93,7 +90,7 @@ class Livy(object):
             # chdir here because things like zepp tutorial think ZEPPELIN_HOME
             # is wherever the daemon was started from.
             os.chdir(livy_home)
-            utils.run_as('hue', './bin/livy-server', '2>&1', livy_log )
+            utils.run_as('hue', './bin/livy-server', '2>&1', livy_log, '&' )
 
     def stop(self):
         livy_conf = self.dist_config.path('livy_conf')
