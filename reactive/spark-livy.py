@@ -2,47 +2,40 @@
 from charms.reactive import when, when_not
 from charms.reactive import set_state, remove_state
 from charmhelpers.core import hookenv
-from charms.zeppelin import Zeppelin
+from charms.livy import Livy
+from charms.hadoop import get_dist_config
 
 
-def get_dist_config():
-    from jujubigdata.utils import DistConfig  # no available until after bootstrap
-
-    if not getattr(get_dist_config, 'value', None):
-        zeppelin_reqs = ['vendor', 'packages', 'dirs', 'ports']
-        get_dist_config.value = DistConfig(filename='dist.yaml', required_keys=zeppelin_reqs)
-    return get_dist_config.value
+dist = get_dist_config()
+livy = Livy(dist)
 
 
 @when('spark.available')
-@when_not('zeppelin.installed')
-def install_zeppelin(hadoop):
-    zepp = Zeppelin(get_dist_config())
-    if zepp.verify_resources():
-        hookenv.status_set('maintenance', 'Installing Zeppelin')
-        zepp.install()
-        set_state('zeppelin.installed')
+@when_not('livy.installed')
+def install_livy(hadoop):
+    if livy.verify_resources():
+        hookenv.status_set('maintenance', 'Installing Livy')
+        livy.install()
+        set_state('livy.installed')
 
 
-@when('zeppelin.installed', 'spark.available')
-@when_not('zeppelin.started')
-def configure_zeppelin(spark):
-    hookenv.status_set('maintenance', 'Setting up Zeppelin')
-    zepp = Zeppelin(get_dist_config())
-    zepp.setup_zeppelin()
-    zepp.configure_zeppelin()
-    zepp.start()
-    zepp.open_ports()
-    set_state('zeppelin.started')
+@when('livy.installed', 'spark.available')
+@when_not('livy.started')
+def configure_livy(spark):
+    hookenv.status_set('maintenance', 'Setting up Livy')
+    livy.setup_livy()
+    livy.configure_livy()
+    livy.start()
+    livy.open_ports()
+    set_state('livy.started')
     hookenv.status_set('active', 'Ready')
 
 
-@when('zeppelin.started')
+@when('livy.started')
 @when_not('spark.available')
-def stop_zeppelin():
-    zepp = Zeppelin(get_dist_config())
-    zepp.stop()
-    remove_state('zepplin.started')
+def stop_livy():
+    livy.stop()
+    remove_state('livy.started')
 
 
 @when_not('spark.related')

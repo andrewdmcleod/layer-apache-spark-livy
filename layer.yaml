@@ -1,1 +1,6 @@
-includes: ['layer:basic', 'interface:spark']
+includes: ['layer:basic', 'interface:livy']
+    groups:
+        - 'hadoop'
+    users:
+        hue:
+            groups: ['hadoop']

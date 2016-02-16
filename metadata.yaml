@@ -1,10 +1,9 @@
-name: apache-zeppelin
-summary: A web-based notebook that enables interactive data analytics.
+name: apache-livy
+summary: REST API for HUE to connect to Apache Spark
 maintainer: Big Data Team <bigdata@lists.ubuntu.com>
 description: |
-  Apache Zeppelin is a web-based notebook that enables interactive data
-  analytics. You can make beautiful data-driven, interactive, and collaborative
-  documents with SQL, Scala and more.
+        LIVY
+        livy
 tags: ["bigdata", "hadoop", "apache"]
 subordinate: true
 requires:
