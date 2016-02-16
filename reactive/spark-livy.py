@@ -6,9 +6,16 @@ from charms.livy import Livy
 from charms.hadoop import get_dist_config
 
 
-dist = get_dist_config()
-livy = Livy(dist)
 
+def get_dist_config():
+    from jujubigdata.utils import DistConfig  # no available until after bootstrap
+
+    if not getattr(get_dist_config, 'value', None):
+        zeppelin_reqs = ['vendor', 'packages', 'dirs', 'ports']
+        get_dist_config.value = DistConfig(filename='dist.yaml', required_keys=zeppelin_reqs)
+    return get_dist_config.value
+
+livy = Livy(get_dist_config())
 
 @when('spark.available')
 @when_not('livy.installed')
